@@ -36,6 +36,19 @@ export default function Search(props) {
     setSearchOptions(alteredOptions);
   };
 
+  const sortData = (sortBy, ascending) => {
+    const sortedData = [...data];
+    ascending
+      ? sortedData.sort((a, b) =>
+          a[sortBy] > b[sortBy] ? 1 : b[sortBy] > a[sortBy] ? -1 : 0
+        )
+      : sortedData.sort((a, b) =>
+          b[sortBy] > a[sortBy] ? 1 : a[sortBy] > b[sortBy] ? -1 : 0
+        );
+    setData(sortedData);
+    alterSorting(sortBy);
+  };
+
   const alterSorting = (sortBy) => {
     const alteredOptions = [...searchOptions];
     alteredOptions.forEach((option) => {
@@ -168,7 +181,7 @@ export default function Search(props) {
         </View>
       ) : (
         <Data
-          sort={getData}
+          sort={sortData}
           options={searchOptions}
           data={data}
           sb={props.sb}

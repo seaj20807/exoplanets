@@ -70,6 +70,7 @@ export default function Data(props) {
       <ScrollView>
         <DataTable>
           <DataTable.Header>
+            {/* Solution (.map instead of forEach()) provided by ChatGPT */}
             {props.options.map((option, index) => {
               if (option[0]) {
                 return (

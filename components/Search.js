@@ -31,6 +31,7 @@ export default function Search(props) {
   const closeMenu = () => setMenuVisible(false);
 
   const handleChecked = (index) => {
+    // Solution (make a copy of an array and replace the original with the copy) provided by ChatGPT
     const alteredOptions = [...searchOptions];
     alteredOptions[index][0] = !searchOptions[index][0];
     setSearchOptions(alteredOptions);
@@ -40,6 +41,7 @@ export default function Search(props) {
     const sortedData = [...data];
     ascending
       ? sortedData.sort((a, b) =>
+          // Solution (a[sortby] instead of a.[sortBy]) provided by ChatGPT
           a[sortBy] > b[sortBy] ? 1 : b[sortBy] > a[sortBy] ? -1 : 0
         )
       : sortedData.sort((a, b) =>

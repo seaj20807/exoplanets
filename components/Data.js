@@ -7,9 +7,9 @@ import InfoSnack from "./InfoSnack";
 
 export default function Data(props) {
   const [page, setPage] = useState(0);
-  const [numberOfItemsPerPageList] = useState([1, 5, 10, 20, 50, 100]);
+  const [numberOfItemsPerPageList] = useState([1, 5, 10, 15, 20, 50, 100]);
   const [itemsPerPage, onItemsPerPageChange] = useState(
-    numberOfItemsPerPageList[2]
+    numberOfItemsPerPageList[3]
   );
   const [infoItem, setInfoItem] = useState([]);
   const [favoriteSaved, setFavoriteSaved] = useState(false);
@@ -67,52 +67,54 @@ export default function Data(props) {
           setMessage={setErrorMessage}
         />
       )}
-      <ScrollView>
-        <DataTable>
-          <DataTable.Header>
-            {/* Solution (.map instead of forEach()) provided by ChatGPT */}
-            {props.options.map((option, index) => {
-              if (option[0]) {
-                return (
-                  <DataTable.Title
-                    onPress={() => props.sort(option[2], option[3])}
-                    key={index}
-                  >
-                    {option[1]}
-                  </DataTable.Title>
-                );
-              } else {
-                return null;
-              }
-            })}
-          </DataTable.Header>
-          {props.data.slice(from, to).map((item) => (
-            <DataTable.Row onPress={() => setInfoItem(item)} key={item.pl_id}>
+      <ScrollView horizontal>
+        <ScrollView>
+          <DataTable>
+            <DataTable.Header style={{ gap: 30 }}>
+              {/* Solution (.map instead of forEach()) provided by ChatGPT */}
               {props.options.map((option, index) => {
                 if (option[0]) {
                   return (
-                    <DataTable.Cell key={index}>
-                      {item[option[2]]}
-                    </DataTable.Cell>
+                    <DataTable.Title
+                      onPress={() => props.sort(option[2], option[3])}
+                      key={index}
+                    >
+                      {option[1]}
+                    </DataTable.Title>
                   );
                 } else {
                   return null;
                 }
               })}
-            </DataTable.Row>
-          ))}
-          <DataTable.Pagination
-            page={page}
-            numberOfPages={Math.ceil(props.data.length / itemsPerPage)}
-            onPageChange={(page) => setPage(page)}
-            label={`${from + 1}-${to} of ${props.data.length}`}
-            numberOfItemsPerPageList={numberOfItemsPerPageList}
-            numberOfItemsPerPage={itemsPerPage}
-            onItemsPerPageChange={onItemsPerPageChange}
-            showFastPaginationControls
-            selectPageDropdownLabel={"Rows per page"}
-          />
-        </DataTable>
+            </DataTable.Header>
+            {props.data.slice(from, to).map((item) => (
+              <DataTable.Row onPress={() => setInfoItem(item)} key={item.pl_id}>
+                {props.options.map((option, index) => {
+                  if (option[0]) {
+                    return (
+                      <DataTable.Cell key={index} style={{ width: 100 }}>
+                        {item[option[2]]}
+                      </DataTable.Cell>
+                    );
+                  } else {
+                    return null;
+                  }
+                })}
+              </DataTable.Row>
+            ))}
+            <DataTable.Pagination
+              page={page}
+              numberOfPages={Math.ceil(props.data.length / itemsPerPage)}
+              onPageChange={(page) => setPage(page)}
+              label={`${from + 1}-${to} of ${props.data.length}`}
+              numberOfItemsPerPageList={numberOfItemsPerPageList}
+              numberOfItemsPerPage={itemsPerPage}
+              onItemsPerPageChange={onItemsPerPageChange}
+              showFastPaginationControls
+              selectPageDropdownLabel={"Rows per page"}
+            />
+          </DataTable>
+        </ScrollView>
       </ScrollView>
       {favoriteSaved && (
         <InfoSnack

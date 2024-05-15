@@ -6,9 +6,9 @@ import ErrDialog from "./ErrDialog";
 
 export default function FavData(props) {
   const [page, setPage] = useState(0);
-  const [numberOfItemsPerPageList] = useState([1, 5, 10, 20, 50, 100]);
+  const [numberOfItemsPerPageList] = useState([1, 5, 10, 15, 20, 50, 100]);
   const [itemsPerPage, onItemsPerPageChange] = useState(
-    numberOfItemsPerPageList[2]
+    numberOfItemsPerPageList[3]
   );
   const [infoItem, setInfoItem] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
